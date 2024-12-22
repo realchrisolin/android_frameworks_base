@@ -1115,13 +1115,15 @@ public class AuthService extends SystemService {
 
         handlerProvider.getFingerprintHandler().post(() -> {
             final FingerprintSensorConfigurations mFingerprintSensorConfigurations =
-                    new FingerprintSensorConfigurations(fingerprintAidlInstances != null
-                            && fingerprintAidlInstances.length > 0);
+                    new FingerprintSensorConfigurations(!(hidlConfigStrings != null
+                            && hidlConfigStrings.length > 0));
+
+            if (hidlConfigStrings != null && hidlConfigStrings.length > 0) {
+                mFingerprintSensorConfigurations.addHidlSensors(hidlConfigStrings, context);
+            }
 
             if (fingerprintAidlInstances != null && fingerprintAidlInstances.length > 0) {
                 mFingerprintSensorConfigurations.addAidlSensors(fingerprintAidlInstances);
-            } else if (hidlConfigStrings != null && hidlConfigStrings.length > 0) {
-                mFingerprintSensorConfigurations.addHidlSensors(hidlConfigStrings, context);
             }
 
             if (fingerprintService != null) {
