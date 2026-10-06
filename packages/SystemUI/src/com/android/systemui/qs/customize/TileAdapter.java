@@ -51,6 +51,7 @@ import com.android.internal.logging.UiEventLogger;
 import com.android.systemui.FontSizeUtils;
 import com.android.systemui.flags.FeatureFlags;
 import com.android.systemui.flags.Flags;
+import com.android.systemui.flags.LockscreenLandscape;
 import com.android.systemui.qs.QSEditEvent;
 import com.android.systemui.qs.QSHost;
 import com.android.systemui.qs.TileLayout;
@@ -140,7 +141,8 @@ public class TileAdapter extends RecyclerView.Adapter<Holder> implements TileSta
         mMarginDecoration = new MarginTileDecoration();
         mMinNumTiles = context.getResources().getInteger(R.integer.quick_settings_min_num_tiles);
         mIsSmallLandscapeLockscreenEnabled =
-                featureFlags.isEnabled(Flags.LOCKSCREEN_ENABLE_LANDSCAPE);
+                LockscreenLandscape.isEnabled(
+                        featureFlags.isEnabled(Flags.LOCKSCREEN_ENABLE_LANDSCAPE), context);
         mNumColumns = useSmallLandscapeLockscreenResources()
                 ? context.getResources().getInteger(
                         R.integer.small_land_lockscreen_quick_settings_num_columns)

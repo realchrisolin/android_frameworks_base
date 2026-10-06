@@ -17,6 +17,7 @@ import androidx.annotation.VisibleForTesting;
 import com.android.internal.logging.UiEventLogger;
 import com.android.systemui.FontSizeUtils;
 import com.android.systemui.flags.Flags;
+import com.android.systemui.flags.LockscreenLandscape;
 import com.android.systemui.flags.RefactorFlag;
 import com.android.systemui.qs.QSPanel.QSTileLayout;
 import com.android.systemui.qs.QSPanelControllerBase.TileRecord;
@@ -56,7 +57,9 @@ public class TileLayout extends ViewGroup implements QSTileLayout {
     protected int mLastTileBottom;
     protected TextView mTempTextView;
     private final Boolean mIsSmallLandscapeLockscreenEnabled =
-            RefactorFlag.forView(Flags.LOCKSCREEN_ENABLE_LANDSCAPE).isEnabled();
+            LockscreenLandscape.isEnabled(
+                    RefactorFlag.forView(Flags.LOCKSCREEN_ENABLE_LANDSCAPE).isEnabled(),
+                    getContext());
 
     public TileLayout(Context context) {
         this(context, null);

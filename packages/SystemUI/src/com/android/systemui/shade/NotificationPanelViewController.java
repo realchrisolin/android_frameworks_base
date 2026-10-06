@@ -130,6 +130,7 @@ import com.android.systemui.dump.DumpManager;
 import com.android.systemui.dump.DumpsysTableLogger;
 import com.android.systemui.flags.FeatureFlags;
 import com.android.systemui.flags.Flags;
+import com.android.systemui.flags.LockscreenLandscape;
 import com.android.systemui.fragments.FragmentService;
 import com.android.systemui.keyguard.KeyguardBottomAreaRefactor;
 import com.android.systemui.keyguard.KeyguardUnlockAnimationController;
@@ -1767,7 +1768,8 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
     }
 
     private boolean shouldForceSmallClock() {
-        return mFeatureFlags.isEnabled(Flags.LOCKSCREEN_ENABLE_LANDSCAPE)
+        return LockscreenLandscape.isEnabled(
+                mFeatureFlags.isEnabled(Flags.LOCKSCREEN_ENABLE_LANDSCAPE), mResources)
                 && !isOnAod()
                 // True on small landscape screens
                 && mResources.getBoolean(R.bool.force_small_clock_on_lockscreen);

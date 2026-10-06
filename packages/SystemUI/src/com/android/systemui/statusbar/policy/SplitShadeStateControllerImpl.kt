@@ -19,6 +19,7 @@ import android.content.res.Resources
 import com.android.systemui.dagger.SysUISingleton
 import com.android.systemui.flags.FeatureFlags
 import com.android.systemui.flags.Flags
+import com.android.systemui.flags.LockscreenLandscape
 import com.android.systemui.res.R
 import javax.inject.Inject
 
@@ -40,7 +41,8 @@ class SplitShadeStateControllerImpl @Inject constructor(private val featureFlags
     )
     override fun shouldUseSplitNotificationShade(resources: Resources): Boolean {
         return (resources.getBoolean(R.bool.config_use_split_notification_shade) ||
-            (featureFlags.isEnabled(Flags.LOCKSCREEN_ENABLE_LANDSCAPE) &&
+            (LockscreenLandscape.isEnabled(
+                featureFlags.isEnabled(Flags.LOCKSCREEN_ENABLE_LANDSCAPE), resources) &&
                 resources.getBoolean(R.bool.force_config_use_split_notification_shade)))
     }
 }

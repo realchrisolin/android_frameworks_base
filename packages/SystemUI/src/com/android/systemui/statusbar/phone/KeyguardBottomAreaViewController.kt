@@ -18,6 +18,7 @@ package com.android.systemui.statusbar.phone
 
 import com.android.systemui.flags.FeatureFlagsClassic
 import com.android.systemui.flags.Flags
+import com.android.systemui.flags.LockscreenLandscape
 import com.android.systemui.Flags.smartspaceRelocateToBottom
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +39,8 @@ class KeyguardBottomAreaViewController
 
     init {
         view.setIsLockscreenLandscapeEnabled(
-                featureFlags.isEnabled(Flags.LOCKSCREEN_ENABLE_LANDSCAPE))
+                LockscreenLandscape.isEnabled(
+                        featureFlags.isEnabled(Flags.LOCKSCREEN_ENABLE_LANDSCAPE), view.context))
     }
 
     override fun onViewAttached() {

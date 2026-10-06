@@ -89,6 +89,7 @@ import com.android.systemui.Dumpable;
 import com.android.systemui.ExpandHelper;
 import com.android.systemui.flags.FeatureFlags;
 import com.android.systemui.flags.Flags;
+import com.android.systemui.flags.LockscreenLandscape;
 import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.qs.flags.QSComposeFragment;
 import com.android.systemui.res.R;
@@ -640,8 +641,8 @@ public class NotificationStackScrollLayout
         super(context, attrs, 0, 0);
         Resources res = getResources();
         mFeatureFlags = Dependency.get(FeatureFlags.class);
-        mIsSmallLandscapeLockscreenEnabled = mFeatureFlags.isEnabled(
-                Flags.LOCKSCREEN_ENABLE_LANDSCAPE);
+        mIsSmallLandscapeLockscreenEnabled = LockscreenLandscape.isEnabled(
+                mFeatureFlags.isEnabled(Flags.LOCKSCREEN_ENABLE_LANDSCAPE), res);
         mDebugLines = mFeatureFlags.isEnabled(Flags.NSSL_DEBUG_LINES);
         mDebugRemoveAnimation = mFeatureFlags.isEnabled(Flags.NSSL_DEBUG_REMOVE_ANIMATION);
         mSectionsManager = Dependency.get(NotificationSectionsManager.class);

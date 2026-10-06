@@ -80,6 +80,7 @@ import com.android.systemui.dagger.qualifiers.Background;
 import com.android.systemui.deviceentry.domain.interactor.DeviceEntryFaceAuthInteractor;
 import com.android.systemui.deviceentry.domain.interactor.DeviceEntryInteractor;
 import com.android.systemui.flags.FeatureFlags;
+import com.android.systemui.flags.LockscreenLandscape;
 import com.android.systemui.keyguard.KeyguardWmStateRefactor;
 import com.android.systemui.keyguard.domain.interactor.KeyguardDismissTransitionInteractor;
 import com.android.systemui.log.SessionTracker;
@@ -376,7 +377,8 @@ public class KeyguardSecurityContainerController extends ViewController<Keyguard
 
                 @Override
                 public void onOrientationChanged(int orientation) {
-                    if (mFeatureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE)
+                    if (LockscreenLandscape.isEnabled(
+                            mFeatureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE), getResources())
                             && getResources().getBoolean(R.bool.update_bouncer_constraints)) {
                         boolean useSplitBouncer = orientation == ORIENTATION_LANDSCAPE;
                         mSecurityViewFlipperController.updateConstraints(useSplitBouncer);

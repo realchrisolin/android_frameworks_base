@@ -31,6 +31,7 @@ import com.android.keyguard.KeyguardInputViewController.Factory;
 import com.android.keyguard.KeyguardSecurityModel.SecurityMode;
 import com.android.keyguard.dagger.KeyguardBouncerScope;
 import com.android.systemui.flags.FeatureFlags;
+import com.android.systemui.flags.LockscreenLandscape;
 import com.android.systemui.res.R;
 import com.android.systemui.util.ViewController;
 
@@ -120,7 +121,8 @@ public class KeyguardSecurityViewFlipperController
     public void asynchronouslyInflateView(SecurityMode securityMode,
             KeyguardSecurityCallback keyguardSecurityCallback,
             @Nullable OnViewInflatedCallback onViewInflatedListener) {
-        int layoutId = mFeatureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE)
+        int layoutId = LockscreenLandscape.isEnabled(
+                mFeatureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE), getResources())
                 ? getLayoutIdFor(securityMode) : getLegacyLayoutIdFor(securityMode);
         if (layoutId != 0) {
             if (DEBUG) {
@@ -139,7 +141,9 @@ public class KeyguardSecurityViewFlipperController
                             onViewInflatedListener.onViewInflated(childController);
 
                             // Single bouncer constrains are default
-                            if (mFeatureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE)) {
+                            if (LockscreenLandscape.isEnabled(
+                                    mFeatureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE),
+                                    getResources())) {
                                 boolean useSplitBouncer =
                                         getResources().getBoolean(R.bool.update_bouncer_constraints)
                                         && getResources().getConfiguration().orientation

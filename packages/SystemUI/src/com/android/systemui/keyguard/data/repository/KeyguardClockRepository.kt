@@ -25,6 +25,7 @@ import com.android.systemui.dagger.qualifiers.Application
 import com.android.systemui.dagger.qualifiers.Background
 import com.android.systemui.flags.FeatureFlagsClassic
 import com.android.systemui.flags.Flags
+import com.android.systemui.flags.LockscreenLandscape
 import com.android.systemui.keyguard.shared.model.ClockSize
 import com.android.systemui.keyguard.shared.model.ClockSizeSetting
 import com.android.systemui.plugins.clocks.ClockController
@@ -165,7 +166,8 @@ constructor(
 
     override val shouldForceSmallClock: Boolean
         get() =
-            featureFlags.isEnabled(Flags.LOCKSCREEN_ENABLE_LANDSCAPE) &&
+            LockscreenLandscape.isEnabled(
+                featureFlags.isEnabled(Flags.LOCKSCREEN_ENABLE_LANDSCAPE), context) &&
                 // True on small landscape screens
                 context.resources.getBoolean(R.bool.force_small_clock_on_lockscreen)
 
