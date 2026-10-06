@@ -30,6 +30,7 @@ import com.android.systemui.bouncer.ui.helper.BouncerHapticPlayer;
 import com.android.systemui.classifier.FalsingCollector;
 import com.android.systemui.flags.FeatureFlags;
 import com.android.systemui.flags.Flags;
+import com.android.systemui.flags.LockscreenLandscape;
 import com.android.systemui.res.R;
 import com.android.systemui.statusbar.policy.DevicePostureController;
 import com.android.systemui.user.domain.interactor.SelectedUserInteractor;
@@ -75,7 +76,8 @@ public class KeyguardPinViewController
         mPostureController = postureController;
         mLockPatternUtils = lockPatternUtils;
         mFeatureFlags = featureFlags;
-        view.setIsLockScreenLandscapeEnabled(mFeatureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE));
+        view.setIsLockScreenLandscapeEnabled(LockscreenLandscape.isEnabled(
+                mFeatureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE), view.getContext()));
         mBackspaceKey = view.findViewById(R.id.delete_button);
         mPinLength = mLockPatternUtils.getPinLength(selectedUserInteractor.getSelectedUserId());
         mUiEventLogger = uiEventLogger;

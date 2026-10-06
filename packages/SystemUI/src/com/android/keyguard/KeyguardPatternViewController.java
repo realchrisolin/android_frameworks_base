@@ -40,6 +40,7 @@ import com.android.systemui.bouncer.ui.helper.BouncerHapticPlayer;
 import com.android.systemui.classifier.FalsingClassifier;
 import com.android.systemui.classifier.FalsingCollector;
 import com.android.systemui.flags.FeatureFlags;
+import com.android.systemui.flags.LockscreenLandscape;
 import com.android.systemui.res.R;
 import com.android.systemui.statusbar.policy.DevicePostureController;
 import com.android.systemui.user.domain.interactor.SelectedUserInteractor;
@@ -221,8 +222,8 @@ public class KeyguardPatternViewController
         mLatencyTracker = latencyTracker;
         mFalsingCollector = falsingCollector;
         mEmergencyButtonController = emergencyButtonController;
-        view.setIsLockScreenLandscapeEnabled(
-                featureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE));
+        view.setIsLockScreenLandscapeEnabled(LockscreenLandscape.isEnabled(
+                featureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE), view.getContext()));
         mLockPatternView = mView.findViewById(R.id.lockPatternView);
         mPostureController = postureController;
     }

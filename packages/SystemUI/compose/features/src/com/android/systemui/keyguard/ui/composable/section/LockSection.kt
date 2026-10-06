@@ -35,6 +35,7 @@ import com.android.systemui.customization.R as customR
 import com.android.systemui.dagger.qualifiers.Application
 import com.android.systemui.flags.FeatureFlagsClassic
 import com.android.systemui.flags.Flags
+import com.android.systemui.flags.LockscreenLandscape
 import com.android.systemui.keyguard.ui.binder.DeviceEntryIconViewBinder
 import com.android.systemui.keyguard.ui.composable.blueprint.BlueprintAlignmentLines
 import com.android.systemui.keyguard.ui.view.DeviceEntryIconView
@@ -126,7 +127,8 @@ constructor(
     private fun lockIconBounds(context: Context): IntRect {
         val windowViewBounds = windowManager.currentWindowMetrics.bounds
         var widthPx = windowViewBounds.right.toFloat()
-        if (featureFlags.isEnabled(Flags.LOCKSCREEN_ENABLE_LANDSCAPE)) {
+        if (LockscreenLandscape.isEnabled(
+                featureFlags.isEnabled(Flags.LOCKSCREEN_ENABLE_LANDSCAPE), context)) {
             val insets = windowManager.currentWindowMetrics.windowInsets
             // Assumed to be initially neglected as there are no left or right insets in portrait.
             // However, on landscape, these insets need to included when calculating the midpoint.

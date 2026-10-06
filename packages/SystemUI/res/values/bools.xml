@@ -66,4 +66,9 @@
 
     <!--  True when small screen (<sw600dp) is landscape. -->
     <bool name="is_small_screen_landscape">false</bool>
+
+    <!-- Device overlay hook for lockscreen.enable_landscape. The flag stays
+         unreleased, so it is off on a user build. A device worn in landscape
+         sets this true and gets the landscape lock screen that flag selects. -->
+    <bool name="config_enable_lockscreen_landscape">false</bool>
 </resources>

@@ -39,6 +39,7 @@ import com.android.keyguard.logging.KeyguardUpdateMonitorLogger;
 import com.android.systemui.dagger.SysUISingleton;
 import com.android.systemui.dump.DumpManager;
 import com.android.systemui.flags.FeatureFlags;
+import com.android.systemui.flags.LockscreenLandscape;
 import com.android.systemui.keyguard.KeyguardUnlockAnimationController;
 import com.android.systemui.keyguard.domain.interactor.KeyguardInteractor;
 import com.android.systemui.res.R;
@@ -290,7 +291,8 @@ public class KeyguardStateControllerImpl implements KeyguardStateController {
         final boolean configEnabled =
                 mContext.getResources().getBoolean(R.bool.config_enableLockScreenRotation);
         return SystemProperties.getBoolean("lockscreen.rot_override", configEnabled)
-                || mFeatureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE);
+                || LockscreenLandscape.isEnabled(
+                        mFeatureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE), mContext);
     }
 
     @Override

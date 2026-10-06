@@ -51,6 +51,7 @@ import com.android.systemui.bouncer.ui.helper.BouncerHapticPlayer;
 import com.android.systemui.classifier.FalsingCollector;
 import com.android.systemui.dagger.qualifiers.Main;
 import com.android.systemui.flags.FeatureFlags;
+import com.android.systemui.flags.LockscreenLandscape;
 import com.android.systemui.res.R;
 import com.android.systemui.statusbar.policy.DevicePostureController;
 import com.android.systemui.user.domain.interactor.SelectedUserInteractor;
@@ -148,7 +149,8 @@ public class KeyguardPasswordViewController
         mMainExecutor = mainExecutor;
         mKeyguardViewController = keyguardViewController;
         mKeyguardKeyboardInteractor = keyguardKeyboardInteractor;
-        if (featureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE)) {
+        if (LockscreenLandscape.isEnabled(
+                featureFlags.isEnabled(LOCKSCREEN_ENABLE_LANDSCAPE), resources)) {
             view.setIsLockScreenLandscapeEnabled();
         }
         mShowImeAtScreenOn = resources.getBoolean(R.bool.kg_show_ime_at_screen_on);
